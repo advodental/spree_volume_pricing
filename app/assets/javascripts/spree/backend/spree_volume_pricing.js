@@ -47,7 +47,11 @@ $.fn.userAutocomplete = function () {
         return data.email
       },
       templateSelection: function (data) {
-        return data.email
+        if (data.email != undefined) {
+          return data.email
+        } else {
+          return data.text
+        }
       }
     })
   }
