@@ -5,10 +5,10 @@
 </tr>
 <tr class="volume_price fields">
   <td>
-    <%= f.collection_select(:supplier_id, Spree::Supplier.all, :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'form-control supplier_select' }) %>
+    <%= f.collection_select(:supplier_id, Spree::Supplier.all, :id, :name, { include_blank: Spree.t('match_choices.none') }, { data: { dropdown_auto_width: true, default_value: f.object&.supplier_id }, class: 'form-control supplier_select select2 select2-offscreen' }) %>
   </td>
   <td>
-    <%= f.collection_select(:pricing_tier_id, f.object&.supplier&.pricing_tiers || [], :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'form-control pricing_tier_select' }) %>
+    <%= f.collection_select(:pricing_tier_id, f.object&.supplier&.pricing_tiers || [], :id, :name, { include_blank: Spree.t('match_choices.none') }, { data: { dropdown_auto_width: true }, class: 'form-control pricing_tier_select select2 select2-offscreen' }) %>
   </td>
   <td>
     <%= f.select :discount_type, [
@@ -16,7 +16,7 @@
         ["#{Spree.t(:total_price)}", 'price'],
         ["#{Spree.t(:percent_discount)}", 'percent'],
         ["#{Spree.t(:price_discount)}", 'dollar']
-      ], { include_blank: true }, class: 'form-control' %>
+      ], { include_blank: true }, class: 'form-control select2', data: { allow_clear: true, dropdown_auto_width: true } %>
   </td>
   <td>
     <%= f.text_field :range, size: 10, class: 'form-control' %>
@@ -28,7 +28,7 @@
     <%= f.text_field :position, size: 3, class: 'form-control' %>
   </td>
   <td>
-    <%= f.collection_select(:role_id, Spree::Role.all, :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'form-control' }) %>
+    <%= f.collection_select(:role_id, Spree::Role.all, :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'form-control select2', data: { dropdown_auto_width: true, allow_clear: true} }) %>
   </td>
   <td class="actions">
     <%= link_to_icon_remove_volume_price f %>
