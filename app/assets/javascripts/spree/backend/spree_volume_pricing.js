@@ -7,10 +7,15 @@ $(function () {
     var target = $(this).data("target"),
       new_table_row = $(target + ' tr:visible:first');
     new_table_row.find('div.select2').remove();
-    $('select.select2').select2({
-      allowClear: true,
-      dropdownAutoWidth: true
+    new_table_row.find('.select2.select2-container').remove();
+    new_table_row.find('select, input').each(function() {
+      let el = $(this);
+      if(el.data('default-value')) {
+        el.val(el.data('default-value'));
+      }
     });
+    $('select.select2').select2();
+    new_table_row.find('.select2').select2();
   });
 
 });
@@ -81,7 +86,6 @@ $(document).ready(function () {
              .attr("value", option['value']).text(option['text']));
         });
         $('select.select2').select2({
-          allowClear: true,
           dropdownAutoWidth: true
         });
         },
@@ -91,7 +95,7 @@ $(document).ready(function () {
   });
 
   // Added custom function to remove volume price row when delete action is performed
-  $('.spree_remove_volume_price').click( function() {
+  $(document).on('click', '.spree_remove_volume_price', function(e) {
     var $el = $(this);
     $el.prev("input[type=hidden]").val("1");
     $el.closest(".fields").hide();
